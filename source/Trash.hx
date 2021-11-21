@@ -23,16 +23,25 @@ class Trash extends FlxSprite
 	{
 		if (!isGone && !isRecycle)
 		{
-			move();
-			canmove();
-			mouseMove();
-			if (!isOnScreen(FlxG.camera))
-			{
-				isGone = true;
-				destroy();
-			}
-			if (y <= 283)
+			if (y <= 283 && PlayState.recycleTrash.length != 5)
 				recycleThis();
+			else if (y <= 283)
+			{
+				setPosition(x, y + 5);
+				FlxG.sound.play(AssetPaths.NoRecycle__wav, 5);
+				canMove = false;
+			}
+			else
+			{
+				move();
+				canmove();
+				mouseMove();
+				if (!isOnScreen(FlxG.camera))
+				{
+					isGone = true;
+					destroy();
+				}
+			}
 		}
 		super.update(elapsed);
 	}
@@ -41,13 +50,11 @@ class Trash extends FlxSprite
 
 	function recycleThis()
 	{
-		if (PlayState.recycleTrash.length != 5)
-		{
-			PlayState.oceanTrash.remove(this);
-			PlayState.recycleTrash.push(this);
-			isRecycle = true;
-			setPosition(910 + (59 * (PlayState.recycleTrash.length - 1)) + intType(), 50.75);
-		}
+		angle = 0;
+		PlayState.oceanTrash.remove(this);
+		PlayState.recycleTrash.push(this);
+		isRecycle = true;
+		setPosition(910 + (60 * (PlayState.recycleTrash.length - 1)) + intType(), 50.75);
 	}
 
 	function canmove()

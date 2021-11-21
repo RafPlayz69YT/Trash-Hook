@@ -14,12 +14,15 @@ class PlayState extends FlxState
 	var text:FlxText;
 	var dt:String = "Score: ";
 	var ml:Bool = false;
-	var e1:FlxSound = new FlxSound().loadEmbedded(AssetPaths.Extra1__wav, true);
-	var e2:FlxSound = new FlxSound().loadEmbedded(AssetPaths.Extra2__wav, true);
+
+	static var e1:FlxSound = new FlxSound().loadEmbedded(AssetPaths.Extra1__wav, true);
+	static var e2:FlxSound = new FlxSound().loadEmbedded(AssetPaths.Extra2__wav, true);
 
 	public var typesTrash:Array<String> = ["Bag", "Bottle", "Net", "Straw", "Tin"];
 	public var endless = MenuState.endless;
 
+	static public var recycled:Int = 0;
+	static public var missed:Int = 0;
 	static public var curDiff:Float = 1;
 	static public var oceanTrash:Array<Trash> = [];
 	static public var recycleTrash:Array<Trash> = [];
@@ -38,12 +41,7 @@ class PlayState extends FlxState
 		water.alpha = 0.6;
 		var recycleBox = new FlxSprite(900, 30).loadGraphic(AssetPaths.RecycleBox__png);
 		add(recycleBox);
-		for (i in 0...typesTrash.length)
-		{
-			var trash = new Trash(typesTrash[i], 200 * (i + 1), 400);
-			add(trash);
-			oceanTrash.push(trash);
-		}
+		addTrash(10);
 		add(water);
 		super.create();
 	}
@@ -81,5 +79,28 @@ class PlayState extends FlxState
 		curDiff = 0;
 		oceanTrash = [];
 		recycleTrash = [];
+	}
+
+	public function addTrash(amount:Int)
+	{
+		for (i in 0...amount)
+		{
+			var trash = new Trash(typesTrash[FlxG.random.int(0, 4)], FlxG.random.float(1000, 1200), FlxG.random.float(300, 600), FlxG.random.int(-45, 45));
+			add(trash);
+			oceanTrash.push(trash);
+		}
+	}
+
+	static public function playMusic()
+	{
+		if (recycled >= 50)
+		{
+			e1.play();
+		}
+		if (recycled >= 100)
+		{
+			e2.play();
+		}
+		FlxG.sound.playMusic(AssetPaths.Game__wav);
 	}
 }

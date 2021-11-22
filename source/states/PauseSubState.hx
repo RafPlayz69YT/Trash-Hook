@@ -12,6 +12,7 @@ class PauseSubState extends FlxSubState
 
 	override public function create()
 	{
+		FlxG.sound.playMusic(AssetPaths.Pause__wav);
 		pi = new FlxSprite(520, -50).loadGraphic(AssetPaths.PauseIcon__png);
 		pi.color = 0xFF6DF0F9;
 		pi.scale.set(0.325, 0.325);
@@ -64,6 +65,7 @@ class PauseSubState extends FlxSubState
 	{
 		FlxG.sound.play(AssetPaths.Select__wav, 1, false, null, true, function next()
 		{
+			PlayState.playMusic();
 			close();
 		});
 	}

@@ -80,7 +80,7 @@ class MenuState extends FlxState
 		if (FlxG.mouse.overlaps(Cicon) && FlxG.mouse.justPressed)
 			FlxG.openURL("https://www.youtube.com/channel/UCmXh1HTaH_KRwisl0892KLA");
 		else if (FlxG.mouse.overlaps(Vicon) && FlxG.mouse.justPressed)
-			FlxG.openURL("https://www.youtube.com/channel/UCmXh1HTaH_KRwisl0892KLA");
+			FlxG.openURL("https://www.youtube.com/watch?v=gEmTVK9RvuQ");
 	}
 
 	function PS()

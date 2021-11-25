@@ -164,6 +164,17 @@ class PlayState extends FlxState
 		curDiff = 1;
 		oceanTrash = [];
 		recycleTrash = [];
+		hasWon = false;
+		barUse = 60;
+		autoRe = false;
+		money = 0;
+		recycled = 0;
+		missed = 0;
+		limit = 10;
+		sRD = 1.0;
+		tAD = 1.0;
+		moneyIncrease = 1.0;
+		maxUpgrade = false;
 	}
 
 	function addTrash(amount:Int)

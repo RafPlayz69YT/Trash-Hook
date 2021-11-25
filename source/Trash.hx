@@ -18,7 +18,7 @@ class Trash extends FlxSprite
 		type = trashType;
 		loadGraphic("assets/images/trash/" + trashType + ".png");
 		angle = ang;
-		speed = sped * PlayState.curDiff;
+		speed = (sped * PlayState.curDiff);
 	}
 
 	override public function update(elapsed:Float)
@@ -31,7 +31,7 @@ class Trash extends FlxSprite
 					color = 0xFF0A0AEE;
 				recycleThis();
 			}
-			else if (y <= 283)
+			else if (y <= 283 && !PlayState.autoRe)
 			{
 				setPosition(x, y + 5);
 				FlxG.sound.play(AssetPaths.NoRecycle__wav, 5);
@@ -44,6 +44,9 @@ class Trash extends FlxSprite
 				mouseMove();
 				if (!isOnScreen(FlxG.camera))
 				{
+					FlxG.sound.play(AssetPaths.Miss__wav);
+					PlayState.barUse++;
+					PlayState.barCheck();
 					PlayState.missed++;
 					del();
 				}
@@ -58,16 +61,17 @@ class Trash extends FlxSprite
 		PlayState.oceanTrash.remove(this);
 		PlayState.recycleTrash.push(this);
 		canRecycle = true;
-		setPosition(910 + (60 * (PlayState.recycleTrash.length - 1)) + intType(), 50.75);
+		setPosition(910 + (60 * (PlayState.recycleTrash.length - 1)), 50.75);
+		if (type == "Net")
+			x += 3 * (PlayState.recycleTrash.length - 1);
 	}
 
-	public function del(cGM = false)
+	public function del()
 	{
 		isGone = true;
 		kill();
 		PlayState.oceanTrash.remove(this);
 		canRecycle = false;
-		if (cGM && FlxG.random.bool(37.5)) {}
 	}
 
 	function canmove()
@@ -96,22 +100,5 @@ class Trash extends FlxSprite
 			x = FlxG.mouse.x - 20;
 			y = FlxG.mouse.y - 3;
 		}
-	}
-
-	function intType():Int
-	{
-		var re = 0;
-		switch (type)
-		{
-			case 'Bag':
-				re = -1;
-			case 'Tin':
-				re = 5;
-			case 'Straw':
-				re = 3;
-			case 'Bottle':
-				re = 8;
-		}
-		return re;
 	}
 }

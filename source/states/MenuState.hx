@@ -38,7 +38,7 @@ class MenuState extends FlxState
 		#end
 		var bg = new FlxSprite().loadGraphic(AssetPaths.BG__png);
 		add(bg);
-		text = new FlxText(20, 1000, FlxG.width, "Endless Mode Score: " + EndS + ".");
+		text = new FlxText(20, 1000, FlxG.width, "Endless Mode Highscore: " + EndS + ".");
 		text.setFormat(AssetPaths.ocean__ttf, 42);
 		#if web
 		notetext = new FlxText(20, 1100, 300, "Notice: you are on web which can't save. If you want to save, you have to download the windows build.");
@@ -56,7 +56,7 @@ class MenuState extends FlxState
 		var vtext = new FlxText(1000, 600, 300, "This was made for #SEAJAM!\nCheck out the video and my youtube channel!");
 		vtext.setFormat(AssetPaths.ocean__ttf, 18);
 		add(vtext);
-		FlxG.sound.playMusic(AssetPaths.MainMenu__wav, 0.7);
+		FlxG.sound.playMusic(AssetPaths.MainMenu__wav, 0.75);
 		FlxTween.tween(logo, {x: 400, y: 55}, 0.5, {ease: FlxEase.quadInOut, onComplete: pbt});
 		pb = new FlxButton(500, 1000, "", PS).loadGraphic(AssetPaths.PlayButton__png, true, 300, 100);
 		add(pb);

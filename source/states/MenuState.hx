@@ -35,6 +35,11 @@ class MenuState extends FlxState
 			FlxG.save.flush();
 		}
 		uS();
+		#else
+		if (EndingState.score == null)
+			EndingState.score = 0;
+
+		EndS = EndingState.score;
 		#end
 		var bg = new FlxSprite().loadGraphic(AssetPaths.BG__png);
 		add(bg);

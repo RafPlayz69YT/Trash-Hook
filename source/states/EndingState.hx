@@ -12,6 +12,8 @@ class EndingState extends FlxState
 {
 	var logo:FlxText;
 
+	public static var score:Int;
+
 	override public function create()
 	{
 		FlxG.sound.playMusic(AssetPaths.MainMenu__wav, 0.75);
@@ -37,6 +39,12 @@ class EndingState extends FlxState
 		if (MenuState.endless && PlayState.recycled > FlxG.save.data.ES)
 		{
 			saveScore();
+			scoreText.text += "\nYou got a new highscore!";
+		}
+		#else
+		if (MenuState.endless && PlayState.recycled > score)
+		{
+			score = PlayState.recycled;
 			scoreText.text += "\nYou got a new highscore!";
 		}
 		#end

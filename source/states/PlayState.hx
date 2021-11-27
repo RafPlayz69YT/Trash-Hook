@@ -69,6 +69,13 @@ class PlayState extends FlxState
 		add(bar);
 		var barText = new FlxText(10, 170, 200, "Ocean Pollution Bar").setFormat(AssetPaths.ocean__ttf, 16, 0xFF6DF0F9, CENTER);
 		add(barText);
+		#if web
+		if (FlxG.html5.onMobile)
+		{
+			var pause = new FlxButton(1235, 5, "", pauseGame).loadGraphic(AssetPaths.PauseIconButton__png);
+			add(pause);
+		}
+		#end
 		addTrash(FlxG.random.int(5, 8));
 		super.create();
 	}
@@ -139,10 +146,15 @@ class PlayState extends FlxState
 	{
 		if (FlxG.keys.anyJustPressed([ESCAPE, ENTER]))
 		{
-			FlxG.mouse.unload();
-			ml = false;
-			openSubState(new PauseSubState(0xC0000000));
+			pauseGame();
 		}
+	}
+
+	function pauseGame()
+	{
+		FlxG.mouse.unload();
+		ml = false;
+		openSubState(new PauseSubState(0xC0000000));
 	}
 
 	function mouseCheck()
